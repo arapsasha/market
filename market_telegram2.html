@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Маркет</title>
-    <style>
+<style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -19,7 +19,7 @@
         }
         .container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             padding: 20px;
         }
@@ -41,6 +41,7 @@
         .buttons {
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
             margin-top: 10px;
         }
         .buttons button {
@@ -50,37 +51,40 @@
             border-radius: 4px;
             padding: 10px;
             cursor: pointer;
+            flex: 1;
+            margin: 5px;
         }
         .buttons button:hover {
             background-color: #45a049;
         }
-		
-		nav {
-        background-color: #333;
-        padding: 10px;
-    }
-    ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        gap: 15px;
-    }
-    li {
-        display: inline;
-    }
-    a {
-        text-decoration: none;
-        color: white;
-        font-size: 18px;
-        padding: 5px 10px;
-        transition: 0.3s;
-    }
-    a:hover {
-        background-color: #555;
-        border-radius: 5px;
-    }
-	
+        nav {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        li {
+            display: inline;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: 0.3s;
+        }
+        a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
         #cart {
             position: fixed;
             top: 10px;
@@ -93,106 +97,57 @@
             overflow: hidden;
             max-height: 60px;
             transition: max-height 0.3s ease-in-out;
+            width: 90%;
+            max-width: 300px;
         }
         #cart:hover {
             max-height: 300px;
             overflow: auto;
         }
-        #cart ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        #cart ul li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        #clear-cart {
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 10px;
-            cursor: pointer;
-            margin-top: 10px;
-            display: block;
-        }
-        #clear-cart:hover {
-            background-color: darkred;
-        }
-        .details {
-            display: none;
-            margin-top: 10px;
-            background: #f1f1f1;
-            padding: 10px;
-            border-radius: 8px;
-        }
-		#order-form {
-            display: none; /* форма замовлення спочатку прихована */
-            background: white;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        #order-form input,
-        #order-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        #order-form button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        #order-form button:hover {
-            background-color: #45a049;
+        @media (max-width: 600px) {
+            .buttons {
+                flex-direction: column;
+            }
+            .buttons button {
+                flex: none;
+                width: 100%;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Онлайн-Маркет</h1>
-		<nav>
-    <ul>
-        <li><a href="index.html">Головна</a></li>
-        <li><a href="market_telegram2.html">Товари</a></li>
-        <li><a href="market_telegram3.html">Контакти</a></li>
-    </ul>
-</nav>
+        <nav>
+            <ul>
+                <li><a href="index.html">Головна</a></li>
+                <li><a href="market_telegram2.html">Товари</a></li>
+                <li><a href="market_telegram3.html">Контакти</a></li>
+            </ul>
+        </nav>
     </header>
-
     <div id="cart">
         <h3>Корзина</h3>
         <ul id="cart-items"></ul>
         <p><strong>Загальна вартість:</strong> $<span id="total-price">0</span></p>
         <button id="clear-cart" onclick="clearCart()">Очистити корзину</button>
-		 <button onclick="showOrderForm()">Замовити</button>
+        <button onclick="showOrderForm()">Замовити</button>
     </div>
-
     <div class="container">
         <div class="product">
             <img src="https://via.placeholder.com/150" alt="Product 1">
-            <h3>Товар 6</h3>
+            <h3>Товар 1</h3>
             <p>Ціна: $10</p>
             <div class="buttons">
                 <button onclick="addToCart('Товар 1', 10)">Додати в корзину</button>
-                <button onclick="toggleDetails(this)">Переглянути</button>
-            </div>
-            <div class="details">
-                <p>Назва: Товар 1</p>
-                <p>Опис: Це чудовий товар!</p>
-                <p>Ціна: $10</p>
+                <button href="market_telegram4.html">Переглянути</button>
             </div>
         </div>
+    </div>
         <div class="product">
             <img src="https://via.placeholder.com/150" alt="Product 2">
             <h3>Товар 7</h3>
